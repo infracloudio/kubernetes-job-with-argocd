@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-job
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  backoffLimit: 1
+  completions: 1
+  template:
+    spec:
+      containers:
+      - name: jobtest
+        image: busybox
+        command: ["echo", "job-test"] 
+      restartPolicy: Never
